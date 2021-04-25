@@ -10,7 +10,7 @@
     // import 'monaco-editor/esm/vs/editor/contrib/caretOperations/transpose.js';
     import "monaco-editor/esm/vs/editor/contrib/clipboard/clipboard.js";
     // import 'monaco-editor/esm/vs/editor/contrib/codeAction/codeActionContributions.js';
-    // import 'monaco-editor/esm/vs/editor/contrib/codelens/codelensController.js';
+    import "monaco-editor/esm/vs/editor/contrib/codelens/codelensController.js";
     import "monaco-editor/esm/vs/editor/contrib/colorPicker/colorContributions.js";
     import "monaco-editor/esm/vs/editor/contrib/comment/comment.js";
     import "monaco-editor/esm/vs/editor/contrib/contextmenu/contextmenu.js";
@@ -24,17 +24,17 @@
     // import 'monaco-editor/esm/vs/editor/contrib/gotoError/gotoError.js';
     // import 'monaco-editor/esm/vs/editor/contrib/gotoSymbol/goToCommands.js';
     // import 'monaco-editor/esm/vs/editor/contrib/gotoSymbol/link/goToDefinitionAtPosition.js';
-    // import 'monaco-editor/esm/vs/editor/contrib/hover/hover.js';
-    // import 'monaco-editor/esm/vs/editor/contrib/inPlaceReplace/inPlaceReplace.js';
-    // import 'monaco-editor/esm/vs/editor/contrib/indentation/indentation.js';
-    // import 'monaco-editor/esm/vs/editor/contrib/inlineHints/inlineHintsController.js';
-    // import 'monaco-editor/esm/vs/editor/contrib/linesOperations/linesOperations.js';
-    // import 'monaco-editor/esm/vs/editor/contrib/linkedEditing/linkedEditing.js';
+    import "monaco-editor/esm/vs/editor/contrib/hover/hover.js";
+    import "monaco-editor/esm/vs/editor/contrib/inPlaceReplace/inPlaceReplace.js";
+    import "monaco-editor/esm/vs/editor/contrib/indentation/indentation.js";
+    import "monaco-editor/esm/vs/editor/contrib/inlineHints/inlineHintsController.js";
+    import "monaco-editor/esm/vs/editor/contrib/linesOperations/linesOperations.js";
+    import "monaco-editor/esm/vs/editor/contrib/linkedEditing/linkedEditing.js";
     // import 'monaco-editor/esm/vs/editor/contrib/links/links.js';
-    // import 'monaco-editor/esm/vs/editor/contrib/multicursor/multicursor.js';
+    import "monaco-editor/esm/vs/editor/contrib/multicursor/multicursor.js";
     // import 'monaco-editor/esm/vs/editor/contrib/parameterHints/parameterHints.js';
-    // import 'monaco-editor/esm/vs/editor/contrib/rename/rename.js';
-    // import 'monaco-editor/esm/vs/editor/contrib/smartSelect/smartSelect.js';
+    import "monaco-editor/esm/vs/editor/contrib/rename/rename.js";
+    import "monaco-editor/esm/vs/editor/contrib/smartSelect/smartSelect.js";
     // import 'monaco-editor/esm/vs/editor/contrib/snippet/snippetController2.js';
     // import 'monaco-editor/esm/vs/editor/contrib/suggest/suggestController.js';
     // import 'monaco-editor/esm/vs/editor/contrib/toggleTabFocusMode/toggleTabFocusMode.js';
@@ -56,42 +56,32 @@
     import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 
     // (2) Desired languages:
-    // import 'monaco-editor/esm/vs/language/css/monaco.contribution.js';
+    import "monaco-editor/esm/vs/language/css/monaco.contribution.js";
     import "monaco-editor/esm/vs/language/html/monaco.contribution.js";
-    // import 'monaco-editor/esm/vs/language/json/monaco.contribution.js';
     // import 'monaco-editor/esm/vs/language/typescript/monaco.contribution.js';
-
-    // import 'monaco-editor/esm/vs/basic-languages/css/css.contribution.js';
-    // import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution.js';
-    // import 'monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution.js';
+    // import 'monaco-editor/esm/vs/language/json/monaco.contribution.js';
+    import "monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution.js";
 
     import { onMount } from "svelte";
 
+    export let value = "Hello World";
+    export let options: monaco.editor.IStandaloneEditorConstructionOptions;
+
     let container;
+    let editor: monaco.editor.IStandaloneCodeEditor;
 
     onMount(() => {
-        monaco.editor.create(container, {
-            theme: "vs-dark",
-            value: ["<div>", "test", "</div>"].join("\n"),
-            language: "html",
-            // fontSize: 16,
-            // fontWeight: "500",
-            // formatOnType: true,
-            // formatOnPaste: true,
-            // highlightActiveIndentGuide: true,
-            // lineNumbersMinChars: 2,
-            // showFoldingControls: "always",
-            // tabCompletion: "on",
+        editor = monaco.editor.create(container, {
+            value,
+            ...options,
         });
     });
+    $: if (editor) {
+        editor.setValue(value);
+    }
 </script>
 
-<div
-    on:input={(e) => console.log(e)}
-    class="monaco-container"
-    bind:this={container}
-    style="height: 500px; text-align: left"
-/>
+<div style="height: 90vh;" on:input bind:this={container} />
 
 <!-- See https://dev.decoupled.com/docs-magic-webWorker-example-monaco if setting up webWorker via self.MonacoEnvironment -->
 

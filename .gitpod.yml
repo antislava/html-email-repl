@@ -43,3 +43,4 @@ github:
 vscode:
   extensions:
     - svelte.svelte-vscode
+    - fivethree.vscode-svelte-snippets

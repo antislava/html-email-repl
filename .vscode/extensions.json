@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "csstools.postcss",
+        "vscode-icons-team.vscode-icons",
+        "fivethree.vscode-svelte-snippets",
+        "svelte.svelte-vscode",
+        "eamodio.gitlens",
+        "github.vscode-pull-request-github"
+    ]
+}
