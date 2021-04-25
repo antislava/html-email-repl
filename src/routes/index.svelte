@@ -30,28 +30,27 @@
 </script>
 
 <div class="w-screen h-screen flex flex-col">
-	<div class="p-2 border-b">
-		<h1 class="text-lg text-blue-500">HTML Email Editor</h1>
+	<div class="p-2 border-b header">
+		<h1 class="text-lg font-semibold">HTML Email Editor</h1>
 	</div>
-	
+
 	<div class="flex-grow">
 		<SplitPane>
 			<section class="w-full h-full" slot="a">
 				{#if browser}
-				{#await import("$lib/MonacoEditor.svelte") then { default: MonacoEditor }}
-				<MonacoEditor
-				{value}
-				{options}
-				on:input={(e) => (html = e.target.value)}
-				/>
-				{/await}
+					{#await import("$lib/MonacoEditor.svelte") then { default: MonacoEditor }}
+						<MonacoEditor
+							{value}
+							{options}
+							on:input={(e) => (html = e.target.value)}
+						/>
+					{/await}
 				{/if}
 			</section>
-			
+
 			<section slot="b" style="height: 100%;">
 				<div>{@html html}</div>
 			</section>
 		</SplitPane>
 	</div>
 </div>
-	

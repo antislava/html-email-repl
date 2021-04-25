@@ -2,7 +2,7 @@ const mode = process.env.NODE_ENV;
 const dev = mode === "development";
 console.log(`postcss: ${dev ? "development" : "production"} build`);
 
-const tailwindcss = require('@tailwindcss/jit');
+const tailwindcss = require('tailwindcss');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 

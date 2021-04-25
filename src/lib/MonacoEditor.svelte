@@ -81,7 +81,7 @@
     }
 </script>
 
-<div style="height: 90vh;" on:input bind:this={container} />
+<div class="h-[90vh]" on:input bind:this={container} />
 
 <!-- See https://dev.decoupled.com/docs-magic-webWorker-example-monaco if setting up webWorker via self.MonacoEnvironment -->
 
