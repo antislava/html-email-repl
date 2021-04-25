@@ -35,8 +35,8 @@
     // import 'monaco-editor/esm/vs/editor/contrib/parameterHints/parameterHints.js';
     import "monaco-editor/esm/vs/editor/contrib/rename/rename.js";
     import "monaco-editor/esm/vs/editor/contrib/smartSelect/smartSelect.js";
-    // import 'monaco-editor/esm/vs/editor/contrib/snippet/snippetController2.js';
-    // import 'monaco-editor/esm/vs/editor/contrib/suggest/suggestController.js';
+    import "monaco-editor/esm/vs/editor/contrib/snippet/snippetController2.js";
+    import "monaco-editor/esm/vs/editor/contrib/suggest/suggestController.js";
     // import 'monaco-editor/esm/vs/editor/contrib/toggleTabFocusMode/toggleTabFocusMode.js';
     // import 'monaco-editor/esm/vs/editor/contrib/unusualLineTerminators/unusualLineTerminators.js';
     // import 'monaco-editor/esm/vs/editor/contrib/viewportSemanticTokens/viewportSemanticTokens.js';
@@ -47,7 +47,7 @@
     // import 'monaco-editor/esm/vs/editor/standalone/browser/iPadShowKeyboard/iPadShowKeyboard.js';
     // import 'monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.js';
     // import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneCommandsQuickAccess.js';
-    // import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess.js';
+    import "monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess.js";
     // import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoSymbolQuickAccess.js';
     // import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneHelpQuickAccess.js';
     // import 'monaco-editor/esm/vs/editor/standalone/browser/referenceSearch/standaloneReferenceSearch.js';
@@ -61,6 +61,26 @@
     // import 'monaco-editor/esm/vs/language/typescript/monaco.contribution.js';
     // import 'monaco-editor/esm/vs/language/json/monaco.contribution.js';
     import "monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution.js";
+
+    import MonacoWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
+    import MonacoHTMLWorker from "monaco-editor/esm/vs/language/html/html.worker?worker";
+    import MonacoTypescriptWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
+
+    // @ts-ignore
+    window.MonacoEnvironment = {
+        getWorker(moduleId, label) {
+            console.log("getWorker", moduleId, label);
+            // if (label === "json") { return "language/json/json.worker"; }
+            // if (label === "css") { return +"language/css/css.worker"; }
+            if (label === "html") {
+                return new MonacoHTMLWorker();
+            }
+            if (label === "typescript" || label === "javascript") {
+                return new MonacoTypescriptWorker();
+            }
+            return new MonacoWorker();
+        },
+    };
 
     import { onMount } from "svelte";
 
@@ -84,21 +104,3 @@
 <div class="h-[90vh]" on:input bind:this={container} />
 
 <!-- See https://dev.decoupled.com/docs-magic-webWorker-example-monaco if setting up webWorker via self.MonacoEnvironment -->
-
-<!-- self.MonacoEnvironment = {
-    getWorkerUrl: function (moduleId, label) {
-        // if (label === 'json') {
-        // 	return './json.worker.bundle.js';
-        // }
-        // if (label === 'css') {
-        // 	return './css.worker.bundle.js';
-        // }
-        // if (label === 'html') {
-        // 	return './html.worker.bundle.js';
-        // }
-        // if (label === 'typescript' || label === 'javascript') {
-        // 	return './ts.worker.bundle.js';
-        // }
-        return './editor.worker.bundle.js';
-    }
-} -->

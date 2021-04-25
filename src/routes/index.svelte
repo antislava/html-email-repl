@@ -13,7 +13,8 @@
 		// lineNumbersMinChars: 2,
 		// showFoldingControls: "always",
 		// tabCompletion: "on",
-		// autoClosingBrackets: true,
+		scrollBeyondLastLine: false,
+		autoClosingBrackets: "languageDefined",
 		autoClosingQuotes: "beforeWhitespace",
 		autoIndent: "full",
 		autoSurround: "languageDefined",
@@ -24,14 +25,14 @@
 		wrappingIndent: "same",
 	};
 
-	let value = "<b>\n\tHello world\n</b>";
+	let value = "<div>\n\t<b>\n\t\tHello world\n\t</b>\n</div>";
 	let html = value;
 	import SplitPane from "$lib/SplitPane.svelte";
 </script>
 
 <div class="w-screen h-screen flex flex-col">
 	<div class="p-2 border-b header">
-		<h1 class="text-lg font-semibold">HTML Email Editor</h1>
+		<h1 class="text-lg font-bold">HTML Email Editor</h1>
 	</div>
 
 	<div class="flex-grow">
