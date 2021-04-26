@@ -43,7 +43,6 @@
 			<section slot="a" class="w-full h-full">
 				{#if browser}
 					{#await import("$lib/MonacoEditorScripts.svelte") then { default: MonacoEditor }}
-					<!-- {#await import("$lib/MonacoEditor.svelte") then { default: MonacoEditor }} -->
 						<MonacoEditor
 							{value}
 							{options}

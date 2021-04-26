@@ -1,5 +1,4 @@
 <!-- From https://stackoverflow.com/questions/57048510/how-to-initialize-microsoft-monaco-editor-in-a-browser-using-simple-javascript-o -->
-
 <script context="module">
     declare var require: any;
     declare var monaco: typeof import("monaco-editor/esm/vs/editor/editor.api.js");
@@ -18,37 +17,39 @@
     let container: HTMLDivElement;
 
     onMount(() => {
-        require.config({
-            paths: { vs: "https://unpkg.com/monaco-editor@0.23.0/min/vs" },
-        });
-        window.MonacoEnvironment = { getWorkerUrl: () => proxy };
+        const script = document.createElement("script");
+        script.src = `https://unpkg.com/monaco-editor@0.23.0/min/vs/loader.js`;
+        document.head.appendChild(script);
+        script.onload = () => {
+            require.config({
+                paths: { vs: "https://unpkg.com/monaco-editor@0.23.0/min/vs" },
+            });
+            window.MonacoEnvironment = { getWorkerUrl: () => proxy };
 
-        let proxy = URL.createObjectURL(
-            new Blob(
-                [
-                    `
+            let proxy = URL.createObjectURL(
+                new Blob(
+                    [
+                        `
 	self.MonacoEnvironment = {
 		baseUrl: 'https://unpkg.com/monaco-editor@0.23.0/min/'
 	};
 	importScripts('https://unpkg.com/monaco-editor@0.23.0/min/vs/base/worker/workerMain.js');
 `,
-                ],
-                { type: "text/javascript" }
-            )
-        );
+                    ],
+                    { type: "text/javascript" }
+                )
+            );
 
-        require(["vs/editor/editor.main"], function () {
-            editor = monaco.editor.create(
-                container,
-                {
+            require(["vs/editor/editor.main"], function () {
+                editor = monaco.editor.create(container, {
                     value,
                     ...options,
-                }
-            );
-            // editor.onKeyUp(() => {
-            //     console.log(editor.getValue());
-            // });
-        });
+                });
+            });
+        };
+        // return () => {
+        //     script.parentNode.removeChild(script);
+        // };
     });
     $: if (editor) {
         editor.setValue(value);
@@ -70,41 +71,3 @@
         bind:this={container}
     />
 </div>
-
-<!-- <svelte:head>
-    <script>
-        require.config({
-            paths: { vs: "https://unpkg.com/monaco-editor@0.23.0/min/vs" },
-        });
-        window.MonacoEnvironment = { getWorkerUrl: () => proxy };
-
-        let proxy = URL.createObjectURL(
-            new Blob(
-                [
-                    `
-	self.MonacoEnvironment = {
-		baseUrl: 'https://unpkg.com/monaco-editor@0.23.0/min/'
-	};
-	importScripts('https://unpkg.com/monaco-editor@0.23.0/min/vs/base/worker/workerMain.js');
-`,
-                ],
-                { type: "text/javascript" }
-            )
-        );
-
-        require(["vs/editor/editor.main"], function () {
-            let editor = monaco.editor.create(
-                document.getElementById("container"),
-                {
-                    value: ["<div>", "\tHello {{world}}", "</div>"].join("\n"),
-                    language: "handlebars",
-                    theme: "vs-dark",
-                }
-            );
-
-            editor.addListener("didType", () => {
-                console.log(editor.getValue());
-            });
-        });
-    </script>
-</svelte:head> -->
