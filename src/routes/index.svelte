@@ -13,6 +13,7 @@
 		// lineNumbersMinChars: 2,
 		// showFoldingControls: "always",
 		// tabCompletion: "on",
+		wordWrap: "on",
 		scrollBeyondLastLine: false,
 		autoClosingBrackets: "languageDefined",
 		autoClosingQuotes: "beforeWhitespace",
@@ -33,8 +34,8 @@
 </script>
 
 <div class="w-screen h-screen flex flex-col">
-	<div class="p-2 border-b border-gray-500 header bg-black text-white">
-		<h1 class="text-lg font-bold">HTML Email Editor</h1>
+	<div class="p-2 border-b border-gray-500 header bg-white">
+		<h1 class="text-lg font-semibold">HTML Email Editor</h1>
 	</div>
 
 	<div class="flex-grow">

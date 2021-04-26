@@ -94,13 +94,9 @@
 
     onMount(() => {
         editor = monaco.editor.create(container, {
-            // model: null,
             value,
             ...options,
         });
-        // monaco.editor.colorize()
-        // const model = monaco.editor.createModel(value, 'text/html')
-        // editor.setModel(model);
     });
     $: if (editor) {
         editor.setValue(value);
