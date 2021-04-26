@@ -38,10 +38,11 @@
 		<h1 class="text-lg font-semibold">HTML Email Editor</h1>
 	</div>
 
-	<div class="flex-grow">
+	<div class="flex-grow" style="--divider-hover: hsl(195, 53%, 70%);">
 		<SplitPane>
-			<section class="w-full h-full" slot="a">
+			<section slot="a" class="w-full h-full">
 				{#if browser}
+					<!-- {#await import("$lib/MonacoEditorScripts.svelte") then { default: MonacoEditor }} -->
 					{#await import("$lib/MonacoEditor.svelte") then { default: MonacoEditor }}
 						<MonacoEditor
 							{value}
