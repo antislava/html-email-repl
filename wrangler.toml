@@ -1,0 +1,10 @@
+name = "email"
+type = "javascript"
+account_id = "94e4ac04197fc5e946e7f3515062077f"
+workers_dev = true
+route = ""
+zone_id = ""
+
+[site]
+bucket = "./build"
+entry-point = "./workers-site"
