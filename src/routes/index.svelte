@@ -1,10 +1,10 @@
 <script>
 	import { browser } from "$app/env";
 
-	import type monaco from "monaco-editor/esm/vs/editor/editor.api.js";
-	let options: monaco.editor.IStandaloneEditorConstructionOptions = {
+    import type { editor } from "monaco-editor/esm/vs/editor/editor.api.js";
+	let options: editor.IStandaloneEditorConstructionOptions = {
 		theme: "vs-dark",
-		language: "html",
+		language: "handlebars",
 		// fontSize: 16,
 		// fontWeight: "500",
 		// formatOnType: true,
@@ -42,8 +42,8 @@
 		<SplitPane>
 			<section slot="a" class="w-full h-full">
 				{#if browser}
-					<!-- {#await import("$lib/MonacoEditorScripts.svelte") then { default: MonacoEditor }} -->
-					{#await import("$lib/MonacoEditor.svelte") then { default: MonacoEditor }}
+					{#await import("$lib/MonacoEditorScripts.svelte") then { default: MonacoEditor }}
+					<!-- {#await import("$lib/MonacoEditor.svelte") then { default: MonacoEditor }} -->
 						<MonacoEditor
 							{value}
 							{options}

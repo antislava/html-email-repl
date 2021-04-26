@@ -1,0 +1,65 @@
+<script>
+    export let value = "Hello World";
+    export let options;
+    let container: HTMLDivElement;
+    // let editor;
+    // import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
+    // onMount(() => {
+    //     editor = monaco.editor.create(container, {
+    //         value,
+    //         ...options,
+    //     });
+    // });
+    // $: if (editor) {
+    //     editor.setValue(value);
+    // }
+
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
+    function emitValue() {
+        dispatch("update", {
+            value: editor.getValue(),
+        });
+    }
+</script>
+
+<div class="w-full h-full relative overflow-hidden">
+    <div
+        id="container"
+        class="absolute inset-0 w-full h-full"
+        on:keyup={emitValue}
+        bind:this={container}
+    />
+</div>
+
+<svelte:head>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/vs/loader.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/vs/editor/editor.main.nls.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/vs/editor/editor.main.js"></script>
+    <script>
+        require.config({
+            paths: {
+                vs:
+                    "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/vs",
+            },
+        });
+        window.MonacoEnvironment = {
+            getWorkerUrl: function (workerId, label) {
+                console.log("getWorkerUrl", workerId, label);
+                return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
+          self.MonacoEnvironment = {
+            baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/'
+          };
+          importScripts('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/vs/base/worker/workerMain.js');`)}`;
+            },
+        };
+
+        // monaco.editor.create(container, {
+        //     value,
+        //     ...options,
+        // });
+    </script>
+</svelte:head>
