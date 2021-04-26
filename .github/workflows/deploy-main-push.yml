@@ -1,9 +1,9 @@
-name: Build and Deploy Prod SSR to Cloudflare Workers on master push
+name: Build and Deploy Prod SSR to Cloudflare Workers on main push
 
 on:
   push:
     branches:
-      - master
+      - main
     # paths:
     #   - 'src/**'
     #   - 'static/**'
