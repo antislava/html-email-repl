@@ -24,20 +24,18 @@
             {w} x {h}
         </div>
     {/if}
+
     <iframe
         title="result"
         bind:this={iframe}
         sandbox="allow-popups-to-escape-sandbox allow-scripts allow-popups allow-forms allow-pointer-lock allow-top-navigation allow-modals allow-same-origin"
     />
-    <!-- <div>{@html html}</div> -->
-    <!-- <pre>{html}</pre> -->
 </div>
 
 <style>
     iframe {
         width: 100%;
         height: 100%;
-        /* height: calc(100vh - var(--nav-h)); */
         border: none;
         display: block;
     }

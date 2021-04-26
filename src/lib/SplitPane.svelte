@@ -9,8 +9,8 @@
     export let buffer = 42;
     export let min;
     export let max;
-    let w;
-    let h;
+    let w: number;
+    let h: number;
     $: size = type === "vertical" ? h : w;
     $: min = 100 * (buffer / size);
     $: max = 100 - min;
@@ -131,11 +131,13 @@
         z-index: 10;
         display: none;
     }
+    .divider:hover::after {
+        background-color: var(--divider-hover);
+        opacity: .5;
+    }
     .divider::after {
         content: "";
         position: absolute;
-        /* background-color: #eee; */
-        background-color: var(--second);
     }
     .horizontal {
         padding: 0 8px;
@@ -144,9 +146,9 @@
         cursor: ew-resize;
     }
     .horizontal::after {
-        left: 8px;
+        left: 4px;
         top: 0;
-        width: 1px;
+        width: 8px;
         height: 100%;
     }
     .vertical {
