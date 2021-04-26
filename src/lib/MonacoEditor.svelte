@@ -60,7 +60,9 @@
     import "monaco-editor/esm/vs/language/html/monaco.contribution.js";
     // import 'monaco-editor/esm/vs/language/typescript/monaco.contribution.js';
     // import 'monaco-editor/esm/vs/language/json/monaco.contribution.js';
-    import "monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution.js";
+    import "monaco-editor/esm/vs/basic-languages/html/html.contribution.js";
+    // import "monaco-editor/esm/vs/basic-languages/handlebars/handlebars.contribution.js";
+    // import "monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution.js";
 
     import MonacoWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
     import MonacoHTMLWorker from "monaco-editor/esm/vs/language/html/html.worker?worker";
@@ -87,20 +89,36 @@
     export let value = "Hello World";
     export let options: monaco.editor.IStandaloneEditorConstructionOptions;
 
-    let container;
+    let container: HTMLDivElement;
     let editor: monaco.editor.IStandaloneCodeEditor;
 
     onMount(() => {
         editor = monaco.editor.create(container, {
+            // model: null,
             value,
             ...options,
         });
+        // monaco.editor.colorize()
+        // const model = monaco.editor.createModel(value, 'text/html')
+        // editor.setModel(model);
     });
     $: if (editor) {
         editor.setValue(value);
     }
+
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
+    function emitValue() {
+        dispatch("update", {
+            value: editor.getValue(),
+        });
+    }
 </script>
 
-<div class="h-[90vh]" on:input bind:this={container} />
-
-<!-- See https://dev.decoupled.com/docs-magic-webWorker-example-monaco if setting up webWorker via self.MonacoEnvironment -->
+<div class="w-full h-full relative overflow-hidden">
+    <div
+        class="absolute inset-0 w-full h-full"
+        on:keyup={emitValue}
+        bind:this={container}
+    />
+</div>

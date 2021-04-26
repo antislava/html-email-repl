@@ -25,13 +25,15 @@
 		wrappingIndent: "same",
 	};
 
-	let value = "<div>\n\t<b>\n\t\tHello world\n\t</b>\n</div>";
+	import markup from "$lib/html/livingdictionaries";
+	let value = markup;
 	let html = value;
 	import SplitPane from "$lib/SplitPane.svelte";
+	import HTMLPreview from "$lib/HTMLPreview.svelte";
 </script>
 
 <div class="w-screen h-screen flex flex-col">
-	<div class="p-2 border-b header">
+	<div class="p-2 border-b border-gray-500 header bg-black text-white">
 		<h1 class="text-lg font-bold">HTML Email Editor</h1>
 	</div>
 
@@ -43,14 +45,14 @@
 						<MonacoEditor
 							{value}
 							{options}
-							on:input={(e) => (html = e.target.value)}
+							on:update={(e) => (html = e.detail.value)}
 						/>
 					{/await}
 				{/if}
 			</section>
 
-			<section slot="b" style="height: 100%;">
-				<div>{@html html}</div>
+			<section slot="b" class="relative h-full">
+				<HTMLPreview {html} />
 			</section>
 		</SplitPane>
 	</div>
