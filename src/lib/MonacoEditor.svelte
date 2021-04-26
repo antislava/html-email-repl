@@ -85,8 +85,7 @@
     };
 
     import { onMount } from "svelte";
-
-    export let value = "Hello World";
+    export let value: string;
     export let options: monaco.editor.IStandaloneEditorConstructionOptions;
 
     let container: HTMLDivElement;
