@@ -1,6 +1,6 @@
 name = "email"
 type = "javascript"
-account_id = "94e4ac04197fc5e946e7f3515062077f"
+account_id = "aa1fb8a6e7e9c0647f7b3035fc85c767"
 workers_dev = true
 route = ""
 zone_id = ""
