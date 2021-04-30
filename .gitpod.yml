@@ -5,7 +5,7 @@ ports:
   - port: 24678
     onOpen: ignore
   - port: 3000
-    onOpen: notify 
+    onOpen: notify
     # open-preview or open-browser
 
 # List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/config-start-tasks
@@ -44,3 +44,5 @@ vscode:
   extensions:
     - svelte.svelte-vscode
     - fivethree.vscode-svelte-snippets
+    - https://storage.cloud.google.com/verse-study.appspot.com/WallabyJs.wallaby-vscode-1.0.289.vsix
+
