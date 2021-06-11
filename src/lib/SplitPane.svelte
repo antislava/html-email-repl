@@ -7,8 +7,8 @@
     export let pos = 50;
     export let fixed = false;
     export let buffer = 42;
-    export let min;
-    export let max;
+    export let min: number = undefined;
+    export let max: number = undefined;
     let w: number;
     let h: number;
     $: size = type === "vertical" ? h : w;
